@@ -1,0 +1,109 @@
+@import url(https://fonts.googleapis.com/css?family=Philosopher:400,700);
+
+body{
+    background-color: bisque;
+}
+
+.title{
+    background-color: crimson;
+    color: white;
+    text-align: center;
+    font-size: 28px;
+    font-family: 'Philosopher', sans-serif;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.formWrapper{
+    position: relative;
+    width:80%;
+    left:10%;
+    top:25px;
+    text-align: center;
+    border-bottom: 1px solid grey;
+    .selectWrapper{
+        .selectLabel{
+            width: 50px;
+            display: inline-block;
+            text-align: right;
+            padding-right: 10px;
+        }
+    }
+    .warningWrapper{
+        padding-top: 10px;
+        color:red;
+    }
+    .searchButton {
+        background-color:#eae0c2;
+        border-radius:24px;
+        border:1px solid #333029;
+        display:inline-block;
+        cursor:pointer;
+        color:#505739;
+        font-family:Verdana;
+        font-size:14px;
+        padding:8px 16px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        &:hover {
+            background-color:#ccc2a6;
+        }
+        &:active {
+            position:relative;
+            top:1px;
+        }
+    }
+}
+
+.hide{
+    display: none;
+}
+
+.resultWrapper{
+    position: relative;
+    width:80%;
+    left:10%;
+    top:40px;
+    text-align: center;
+    .priceAndName{
+        width: 100%;
+        display:inline-flex;
+        justify-content:space-around;
+        align-items:center;
+        .name{
+            font-size: 18px;
+            font-weight: bolder;
+            .fromTo{
+                font-size: 12px;
+                font-weight: normal;
+            }
+        }
+        .price{
+            padding-left: 10px;
+            padding-right: 10px;
+            color:crimson;
+        }
+    }
+    .displayArray{
+        .scheduleWrapper{
+            .schedule{
+                display:inline-flex;
+                justify-content:space-around;
+                align-items:center;
+                width: 100%;
+                padding-bottom: 15px;
+                .arr{
+                }
+                .typeDuration{
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    .type{
+                        font-weight: bolder;
+                        color: teal;
+                    }
+                }
+            }           
+        }
+  
+    }
+}
