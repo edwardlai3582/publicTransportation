@@ -39,6 +39,7 @@ self.addEventListener('install', function(event) {
   var urlsToPrefetch = [
     'bundle.js',
     'style.css',
+    'GTFSCaltrainDevs/',
     'GTFSCaltrainDevs/fare_attributes.txt',  
     'GTFSCaltrainDevs/fare_rules.txt', 
     'GTFSCaltrainDevs/routes.txt',
