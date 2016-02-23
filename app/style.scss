@@ -70,6 +70,7 @@ body{
         display:inline-flex;
         justify-content:space-around;
         align-items:center;
+        padding-bottom: 10px;
         .name{
             font-size: 18px;
             font-weight: bolder;
@@ -91,14 +92,17 @@ body{
                 justify-content:space-around;
                 align-items:center;
                 width: 100%;
-                padding-bottom: 15px;
+                padding-bottom: 10px;
+                padding-top: 10px;
+                border-top: 1px solid grey;
                 .arr{
                 }
                 .typeDuration{
                     padding-left: 10px;
                     padding-right: 10px;
+                    font-weight: bolder;
                     .type{
-                        font-weight: bolder;
+                        
                         color: teal;
                     }
                 }
