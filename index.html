@@ -38,14 +38,16 @@
           .catch(function(error) {
             // Something went wrong during registration. The service-worker.js file
             // might be unavailable or contain a syntax error.
-            document.querySelector('#status').textContent = error;
+            //document.querySelector('#status').textContent = error;
+            console.log(error);
           });
       } else {
         // The current browser doesn't support service workers.
         var aElement = document.createElement('a');
         aElement.href = 'http://www.chromium.org/blink/serviceworker/service-worker-faq';
         aElement.textContent = 'Service workers are not supported in the current browser.';
-        document.querySelector('#status').appendChild(aElement);
+        //document.querySelector('#status').appendChild(aElement);
+        console.log('Service workers are not supported in the current browser.');  
       }
     </script>
 	</head>
