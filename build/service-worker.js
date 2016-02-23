@@ -37,10 +37,15 @@ self.addEventListener('install', function(event) {
   var now = Date.now();
 
   var urlsToPrefetch = [
-    'bundle.js',
-    'style.css',
-    'GTFSCaltrainDevs/'  
-    '/'
+    '/bundle.js',
+    '/style.css',
+    '/GTFSCaltrainDevs/',
+    '/GTFSCaltrainDevs/fare_attributes.txt',  
+    '/GTFSCaltrainDevs/fare_rules.txt', 
+    '/GTFSCaltrainDevs/routes.txt',
+    '/GTFSCaltrainDevs/stop_times.txt', 
+    '/GTFSCaltrainDevs/stops.txt',
+    '/GTFSCaltrainDevs/trips.txt',   
   ];
 
   // All of these logging statements should be visible via the "Inspect" interface
