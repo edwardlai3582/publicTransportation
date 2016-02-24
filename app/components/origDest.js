@@ -4,16 +4,14 @@ import { connect } from 'react-redux';
 
 import actions from '../actions';
 
-import {} from 'react-bootstrap';
-import Select from 'react-select';
 import 'whatwg-fetch';
 
 class OrigDest extends Component {
     constructor() {
 		super();
         this.state = { warning: '',
-                       qqO:'7002',
-                       qqD:'7002'
+                       localOrig:'7002',
+                       localDest:'7002'
                      };
 	}
     
@@ -23,10 +21,9 @@ class OrigDest extends Component {
 
     sendInfo(e){
         //e.preventDefault();
-        let localOrig=this.state.qqO;
-        let localDest=this.state.qqD;
+        let localOrig=this.state.localOrig;
+        let localDest=this.state.localDest;
         
-        console.log("orig="+localOrig+", dest="+localDest);
         if(localOrig===localDest){
             this.setState({warning: 'stops can not be the same.'}); 
             return;
@@ -37,19 +34,19 @@ class OrigDest extends Component {
     
     handleChangeOrig(e){
         if(e.target.value!==this.props.stops.selectDest){
-            this.setState({warning: '', qqO:e.target.value});
+            this.setState({warning: '', localOrig:e.target.value});
         }
         else{
-            this.setState({warning: 'stops can not be the same.', qqO:e.target.value});    
+            this.setState({warning: 'stops can not be the same.', localOrig:e.target.value});    
         }
     }
     
     handleChangeDest(e){
         if(e.target.value!==this.state.selectOrig){
-            this.setState({warning: '', qqD:e.target.value}); 
+            this.setState({warning: '', localDest:e.target.value}); 
         }
         else{
-            this.setState({warning: 'stops can not be the same.', qqD:e.target.value});    
+            this.setState({warning: 'stops can not be the same.', localDest:e.target.value});    
         }
     }
     
