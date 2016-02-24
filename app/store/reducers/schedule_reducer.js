@@ -2,11 +2,15 @@ import initialState from '../initialstate';
 
 export default (currentstate, action) => {
 	switch (action.type) {
-		case 'GOT_RESULT':
+        case 'FINISHED_SEARCH':
 			return {
-				orig: action.orig,
-                dest: action.dest,
-			};
+				displayArray: action.displayArray, 
+                searchfinished:true,
+                origName:action.origName,
+                destName:action.destName,
+                price:action.price
+			}; 
+            
 		default: return currentstate || initialState.schedule;
 	}
 };

@@ -2,9 +2,13 @@ import C from '../constants';
 
 export default {    
     schedule: {
-        orig: "",
-        dest: "",
-        show: false,
-        scheduleArray: []
+        origName:'',
+        destName:'',
+        price:'',
+        displayArray: [],
+        searchfinished: false
+    },
+    stops:{
+        stopsArray: []
     }
 };
