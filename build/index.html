@@ -50,6 +50,14 @@
         console.log('Service workers are not supported in the current browser.');
       }
       */
+      if(navigator.serviceWorker){
+          navigator.serviceWorker.register('./service-worker.js').then(function(reg){
+              console.log('WORKED');              
+          }).catch(function(){
+              console.log('FAILED');
+          });          
+      }
+   
     </script>
 	</head>
 	

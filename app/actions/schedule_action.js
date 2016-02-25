@@ -9,13 +9,16 @@ const scheduleActions = {
             localDest=localDest+'2';
         }
         
+        console.log('from: '+localOrig);
+        console.log('to: '+localDest);
+        
         return (dispatch) => {
             fetch('./GTFSCaltrainDevs/trips.txt').then(function(response) {
               if(response.ok) {
                 response.text().then(function(myText) {
                     let lineArray = myText.split(/\n/);
                     //////////
-                    let currenteDate = new Date("March 6, 2016 09:25:00");//"March 6, 2016 09:25:00"
+                    let currenteDate = new Date();//"March 6, 2016 09:25:00"
                     let currentHour = currenteDate.getHours();
                     let currentMinutes = currenteDate.getMinutes();
 
