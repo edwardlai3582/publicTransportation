@@ -5,9 +5,9 @@ var staticCacheName = 'udacityCaltrain-static-v2';
 self.addEventListener('install', function(event) {
     var urlsToCache = [
         '/',
+        'xml2json.js',
         'bundle.js',
         'style.css',
-        'GTFSCaltrainDevs/',
         'GTFSCaltrainDevs/fare_attributes.txt',  
         'GTFSCaltrainDevs/fare_rules.txt', 
         'GTFSCaltrainDevs/routes.txt',
