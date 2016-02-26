@@ -169,7 +169,12 @@ fetch('./GTFSCaltrainDevs/trips.txt').then(function(response) {
         }
         
         displayArray.sort(function(a, b) {
-            if (a.orig_arr > b.orig_arr) {
+            let currenteDate = new Date();
+            let currentTimeInMinute = currenteDate.getHours()*60 + currenteDate.getMinutes();
+            let currentA = parseInt(a.orig_arr.split(':')[0])*60 + parseInt(a.orig_arr.split(':')[1]);
+            let currentB = parseInt(b.orig_arr.split(':')[0])*60 + parseInt(b.orig_arr.split(':')[1]);
+            
+            if ( Math.abs(currentA-currentTimeInMinute) > Math.abs(currentB-currentTimeInMinute)) {
                 return 1;
             }
             else {
@@ -224,6 +229,9 @@ fetch('./GTFSCaltrainDevs/trips.txt').then(function(response) {
                         let current=0;
                         for(let j=0; j<displayArray.length; j++){
                             if(DepartureTimeListArray[i].Name===displayArray[j].type){   
+                                if(typeof DepartureTimeListArray[i].DepartureTimeList[current]  == "undefined"){
+                                    continue;
+                                }
                                 let newOrigArrInt= currentHour*60+currentMinutes+parseInt(DepartureTimeListArray[i].DepartureTimeList[current]);
                                 let newOrigArrHourString=""+Math.floor(newOrigArrInt/60);
                                 let newOrigArrMinString =(newOrigArrInt%60>9)? ""+newOrigArrInt%60 : "0"+newOrigArrInt%60;
