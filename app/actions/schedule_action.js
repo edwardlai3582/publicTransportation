@@ -180,7 +180,7 @@ fetch('./GTFSCaltrainDevs/trips.txt').then(function(response) {
 
         
         ///REAL_TIME_API_FROM_MY511
-        fetch('http://services.my511.org/Transit2.0/GetNextDeparturesByStopCode.aspx?token=b6948405-2fc1-4e64-8a4b-b37d0df7cd52&stopcode='+localOrig).then(function(response){
+        fetch('https://services.my511.org/Transit2.0/GetNextDeparturesByStopCode.aspx?token=b6948405-2fc1-4e64-8a4b-b37d0df7cd52&stopcode='+localOrig).then(function(response){
             if(response.ok) {
                 response.text().then(function(myText) {
                     let x2js = new X2JS();
