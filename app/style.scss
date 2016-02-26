@@ -2,6 +2,7 @@
 
 body{
     background-color: bisque;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
 }
 
 .title{
@@ -95,7 +96,8 @@ body{
                 padding-bottom: 10px;
                 padding-top: 10px;
                 border-top: 1px solid grey;
-                .arr{
+                .modified{
+                    color:darkmagenta;
                 }
                 .typeDuration{
                     padding-left: 10px;

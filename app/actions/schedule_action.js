@@ -13,11 +13,13 @@ const scheduleActions = {
         console.log('to: '+localDest);
         
         return (dispatch) => {
+            /*
+            use fetch api to read GTFS text files
+            */
             fetch('./GTFSCaltrainDevs/trips.txt').then(function(response) {
               if(response.ok) {
                 response.text().then(function(myText) {
                     let lineArray = myText.split(/\n/);
-                    //////////
                     let currenteDate = new Date();//"March 6, 2016 09:25:00"
                     let currentHour = currenteDate.getHours();
                     let currentMinutes = currenteDate.getMinutes();
@@ -162,6 +164,7 @@ fetch('./GTFSCaltrainDevs/trips.txt').then(function(response) {
                 }
             }
             tempObj.type= type;
+            tempObj.modified = false;
             displayArray.push(tempObj);
         }
         
@@ -174,12 +177,100 @@ fetch('./GTFSCaltrainDevs/trips.txt').then(function(response) {
             }
         });
         console.log(displayArray);
-        dispatch({ type: 'FINISHED_SEARCH', 
+
+        
+        ///REAL_TIME_API_FROM_MY511
+        fetch('http://services.my511.org/Transit2.0/GetNextDeparturesByStopCode.aspx?token=b6948405-2fc1-4e64-8a4b-b37d0df7cd52&stopcode='+localOrig).then(function(response){
+            if(response.ok) {
+                response.text().then(function(myText) {
+                    let x2js = new X2JS();
+                    let jsonObj = x2js.xml_str2json( myText );
+                    let DepartureTimeListArray=[];
+                    let RouteArray = jsonObj.RTT.AgencyList.Agency.RouteList.Route;
+                    
+                    for(let i=0; i< RouteArray.length; i++){
+                        let Name = RouteArray[i]._Name;                                   
+                        let DepartureTimeList = [];
+                        let RouteDirection = RouteArray[i].RouteDirectionList.RouteDirection;
+                        if (Array.isArray(RouteDirection)){
+                            for(let j=0; j<RouteDirection.length; j++){
+                                let DepartureTime = RouteDirection[j].StopList.Stop.DepartureTimeList.DepartureTime;
+                                if (Array.isArray(DepartureTime)){
+                                    DepartureTimeList.push(...DepartureTime);    
+                                }
+                                else{
+                                    if(DepartureTime!=="")DepartureTimeList.push(DepartureTime);     
+                                }
+                            }   
+                        }
+                        else{
+                            let DepartureTime = RouteDirection.StopList.Stop.DepartureTimeList.DepartureTime;
+                            if (Array.isArray(DepartureTime)){
+                                DepartureTimeList.push(...DepartureTime);    
+                            }
+                            else{
+                                if(typeof DepartureTime !== "undefined")DepartureTimeList.push(DepartureTime);     
+                            }
+                        }
+                        let tempObj={};
+                        tempObj.Name=Name;
+                        tempObj.DepartureTimeList=DepartureTimeList;
+                        DepartureTimeListArray.push(tempObj);
+                    }
+                    console.log(DepartureTimeListArray);
+                    
+                    //modify displayArray with my511 real time api
+                    for(let i=0; i<DepartureTimeListArray.length; i++){
+                        let current=0;
+                        for(let j=0; j<displayArray.length; j++){
+                            if(DepartureTimeListArray[i].Name===displayArray[j].type){   
+                                let newOrigArrInt= currentHour*60+currentMinutes+parseInt(DepartureTimeListArray[i].DepartureTimeList[current]);
+                                let newOrigArrHourString=""+Math.floor(newOrigArrInt/60);
+                                let newOrigArrMinString =(newOrigArrInt%60>9)? ""+newOrigArrInt%60 : "0"+newOrigArrInt%60;
+                                let newDestArrInt= newOrigArrInt+ displayArray[j].duration;
+                                let newDestArrHourString=""+Math.floor(newDestArrInt/60);
+                                let newDestArrMinString =(newDestArrInt%60>9)? ""+newDestArrInt%60 : "0"+newDestArrInt%60;
+                                
+                                displayArray[j].orig_arr=newOrigArrHourString+":"+newOrigArrMinString+":00";
+                                displayArray[j].dest_arr=newDestArrHourString+":"+newDestArrMinString+":00";
+                                displayArray[j].modified=true;
+                                
+                                current++;
+                                if(current===DepartureTimeListArray[i].DepartureTimeList.length){
+                                    break;
+                                }
+                            }
+                        }
+                    } 
+                    
+                    dispatch({ type: 'FINISHED_SEARCH', 
+                        displayArray:displayArray ,
+                        origName:origName,
+                        destName:destName,
+                        price:price
+                    });
+
+                });                
+            } else {
+                console.log('Network response was not ok.');
+                dispatch({ type: 'FINISHED_SEARCH', 
                    displayArray:displayArray ,
                    origName:origName,
                    destName:destName,
                    price:price
-                 });
+                });
+            }
+   
+        })
+        .catch(function(error) {
+            console.log('There has been a problem with your fetch operation: ' + error.message);
+            dispatch({ type: 'FINISHED_SEARCH', 
+                   displayArray:displayArray ,
+                   origName:origName,
+                   destName:destName,
+                   price:price
+            });
+        });
     });
   } else {
     console.log('Network response was not ok.');

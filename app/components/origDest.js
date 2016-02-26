@@ -69,12 +69,12 @@ class OrigDest extends Component {
             return (
                 <div key={schedule.orig_arr} className="scheduleWrapper">
                     <div className="schedule">
-                        <div className="arr">{schedule.orig_arr.slice(0,-3)}</div>
+                        <div className={schedule.modified?"modified":""}>{schedule.orig_arr.slice(0,-3)}</div>
                         <div className="typeDuration">
                             <div className="type">{schedule.type}</div>
                             <div className="duration">{schedule.duration} &nbsp;min</div>
                         </div>
-                        <div className="arr">{schedule.dest_arr.slice(0,-3)}</div> 
+                        <div className={schedule.modified?"modified":""}>{schedule.dest_arr.slice(0,-3)}</div> 
                     </div>
                 </div>
             );
